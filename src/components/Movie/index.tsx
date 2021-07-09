@@ -35,7 +35,7 @@ export function Movie( {title, year,...rest}: Props ){
           </Text>
 
           <Text style={styles.year}>
-            {year}
+            {`Ano: ${year}`}
           </Text>
         </View>
 
