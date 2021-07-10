@@ -40,7 +40,7 @@ export async function loadFavoritesMovies(): Promise<MovieProps[]> {
     }
 }
 
-export async function removeFavoriteFilme(id: string): Promise<void> {
+export async function removeFavoriteMovie(id: string): Promise<void> {
     const data = await AsyncStorage.getItem('@movies');
     const movies = data ? (JSON.parse(data) as StorageMoviesProps) : {};
 
