@@ -3,14 +3,15 @@ import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
-  FlatList
+  FlatList,
+  Alert
 } from 'react-native';
 import { Movie } from '../../components/Movie';
 import { useMovies } from '../../hooks/listMovies';
 import { MovieProps } from '../Movies';
 import { styles } from './styles';
 
-import { loadFavoritesMovies } from '../../storage';
+import { loadFavoritesMovies, removeFavoriteMovie } from '../../storage';
 
 export function Favorites(){
   const [movies, setMovies] = useState<MovieProps[]>([])
@@ -25,6 +26,24 @@ export function Favorites(){
     loadMovies();
   }, [movies]);
 
+  async function remove(id: string, Title: string) {
+    Alert.alert('Remover ⭐', `Deseja remover ${Title} dos favoritos?`, [
+      {
+        text: 'Não',
+        style: 'cancel'
+      },
+      {
+        text: 'Sim',
+        onPress: async () => {
+          try {
+            await removeFavoriteMovie(id);
+          } catch (error) {
+            Alert.alert('Não foi possível remover');
+          }
+        }
+      }
+    ])
+  }
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -42,6 +61,7 @@ export function Favorites(){
               Year={item.Year}
               imdbID={item.imdbID}
               fav={true}
+              onPress={() => remove(item.imdbID, item.Title)}
               activeOpacity={0.7}
             />
           )}
