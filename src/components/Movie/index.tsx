@@ -1,28 +1,39 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import {
   View,
-  Text
+  Text,
+  Alert
 } from 'react-native';
 import { RectButton, RectButtonProps } from 'react-native-gesture-handler';
 import { AntDesign } from '@expo/vector-icons';
 import { styles } from './styles';
 import { MovieProps } from '../../screens/Movies';
 import { theme } from '../../global/styles/theme';
+import { useMovies } from '../../hooks/listMovies';
+import { saveFavoriteMovie } from '../../storage';
 
-type Props = RectButtonProps & MovieProps;
+type Props = RectButtonProps &{
+  Title: string,
+  Year: string,
+  imdbID: string,
+  fav: boolean
+};
 
-export function Movie( { Title, Year, imdbID, ...rest}: Props ){
+export function Movie( { Title, Year, imdbID, fav, ...rest}: Props ){
   const [ isFavorite, setIsFavorite ] = useState(false);
 
-  function handleFavorite() {
-    isFavorite ? setIsFavorite(false) : setIsFavorite(true);
-  }
+  useEffect(() =>{
+    function isfav() {
+      setIsFavorite(fav);
+    }
+    isfav();
+  }, [])
+  
 
   return (
     <RectButton
       {...rest}
-      onPress={handleFavorite}
       style={styles.container}
     >
       
