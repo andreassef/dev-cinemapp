@@ -7,18 +7,15 @@ import {
 import { RectButton, RectButtonProps } from 'react-native-gesture-handler';
 import { AntDesign } from '@expo/vector-icons';
 import { styles } from './styles';
+import { MovieProps } from '../../screens/Movies';
 import { theme } from '../../global/styles/theme';
 
-type Props = RectButtonProps & {
-  title: string,
-  year: number,
-}
+type Props = RectButtonProps & MovieProps;
 
-export function Movie( {title, year,...rest}: Props ){
+export function Movie( { Title, Year, imdbID, ...rest}: Props ){
   const [ isFavorite, setIsFavorite ] = useState(false);
 
   function handleFavorite() {
-    console.log('clicou')
     isFavorite ? setIsFavorite(false) : setIsFavorite(true);
   }
 
@@ -31,11 +28,11 @@ export function Movie( {title, year,...rest}: Props ){
       
         <View style={styles.content}>
           <Text style={styles.title}>
-            {title}
+            {Title}
           </Text>
 
           <Text style={styles.year}>
-            {`Ano: ${year}`}
+            {`Ano: ${Year}`}
           </Text>
         </View>
 
