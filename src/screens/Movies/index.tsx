@@ -5,7 +5,8 @@ import {
   Text,
   TextInput,
   Button,
-  FlatList
+  FlatList,
+  Alert
 } from 'react-native';
 import { RectButton } from 'react-native-gesture-handler';
 import { theme } from '../../global/styles/theme';
@@ -13,6 +14,8 @@ import { Feather } from '@expo/vector-icons';
 import api from '../../services/api';
 import { styles } from './styles';
 import { Movie } from '../../components/Movie';
+import { useMovies } from '../../hooks/listMovies';
+import { saveFavoriteMovie } from '../../storage';
 
 export type MovieProps = {
   Title: string,
@@ -22,24 +25,42 @@ export type MovieProps = {
 }
 
 export function Movies(){
-  const [ movies, setMovies ] = useState<MovieProps[]>([]);
   const [ title, setTitle ] = useState('');
+  const {movies, getMovies} = useMovies();
+  const [ isFavorite, setIsFavorite ] = useState(false);
 
   async function handleInputSearchMovies(title: any) {
     setTitle(title);  
   }
 
-  async function getMovies(){
-    const moviesByTitle = await api.get('', {
-      params: {
-        s: title
-      }
-    });
-    //const response = moviesByTitle.config.data;
-    console.log(JSON.stringify(moviesByTitle.data.Search));
-    const moviesFinded = moviesByTitle.data.Search;
-    !moviesFinded ? setMovies([]) : setMovies(moviesFinded)
+  async function handleSaveFavorite({Title, imdbID, Year}: MovieProps) {
+    try {
+      Alert.alert('Favoritar ⭐', `Deseja adicionar ${Title} aos favoritos?`, [
+        {
+          text: 'Não',
+          style: 'cancel'
+        },
+        {
+          text: 'Sim',
+          onPress: async () => {
+            try {
+              await saveFavoriteMovie({
+                imdbID,
+                Title,
+                Year
+              })
+             setIsFavorite(true);
+            } catch (error) {
+              Alert.alert('Não foi possível remover');
+            }
+          }
+        }
+      ])
+    } catch (error) {
+      console.log('Erro na tela de Movies: ' + error)
+    }
   }
+
 
   return (
     <View style={styles.container}>
@@ -55,7 +76,7 @@ export function Movies(){
           placeholder="Digite o nome de um filme" 
           onChangeText={handleInputSearchMovies}
         />
-        <RectButton onPress={() => getMovies()} style={styles.button}>
+        <RectButton onPress={() => getMovies(title)} style={styles.button}>
           <Feather name="search" size={25} color={theme.colors.heading} />
         </RectButton>
       </View>
@@ -75,6 +96,8 @@ export function Movies(){
               Title={item.Title}
               Year={item.Year}
               imdbID={item.imdbID}
+              fav={isFavorite}
+              onPress={() => handleSaveFavorite({Title: item.Title, Year: item.Year, imdbID: item.imdbID})}
               activeOpacity={0.7}
             />
           )}
