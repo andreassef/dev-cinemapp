@@ -3,7 +3,6 @@ import {
   View,
   Text,
   TextInput,
-  Button,
   FlatList,
   Alert
 } from 'react-native';
@@ -13,7 +12,8 @@ import { Feather } from '@expo/vector-icons';
 import { styles } from './styles';
 import { Movie } from '../../components/Movie';
 import { useMovies } from '../../hooks/listMovies';
-import { loadFavoritesMovies, saveFavoriteMovie, saveInputSearch } from '../../storage';
+import { saveFavoriteMovie, saveInputSearch } from '../../storage';
+import SadSVG from '../../assets/discord.svg';
 
 export type MovieProps = {
   Title: string,
@@ -91,8 +91,8 @@ export function Movies(){
       {
         movies.length == 0 ? 
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-          <Text style={{fontSize: 18, color: 'white'}}>
-            Lista Vazia
+          <Text style={{fontSize: 80, color: 'white'}}>
+          🧐
           </Text>
         </View>
       :
