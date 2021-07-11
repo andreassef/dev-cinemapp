@@ -6,7 +6,7 @@ import React, {
 } from "react";
 import { MovieProps } from '../screens/Movies';
 import api from "../services/api";
-
+import { loadFavoritesMovies } from '../storage';
 type MoviesContextData = {
     movies: MovieProps[],
     getMovies: (title: string) => Promise<void>
@@ -29,9 +29,22 @@ function MoviesProvider({children}: MoviesProviderProps) {
         });
         //const response = moviesByTitle.config.data;
         console.log(JSON.stringify(moviesByTitle.data.Search));
-        const moviesFinded = moviesByTitle.data.Search;
+
+        const moviesStorage = await loadFavoritesMovies();
+
+        let moviesFinded = moviesByTitle.data.Search;
+        if(moviesFinded){
+            moviesFinded.map((obj: any) => {
+                for(let index in moviesStorage){
+                    if(moviesStorage[index].imdbID === obj.imdbID){
+                        return obj.isChecked = true;
+                    }
+                }
+                return obj.isChecked = false;
+            })
+        }
         !moviesFinded ? setMovies([]) : setMovies(moviesFinded)
-      }
+    }
 
     return(
         <MoviesContext.Provider value={{movies, getMovies}}>
