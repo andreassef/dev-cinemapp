@@ -11,11 +11,11 @@ import { useMovies } from '../../hooks/listMovies';
 import { MovieProps } from '../Movies';
 import { styles } from './styles';
 
-import { loadFavoritesMovies, removeFavoriteMovie } from '../../storage';
+import { loadFavoritesMovies, removeFavoriteMovie, getInputSearch } from '../../storage';
 
 export function Favorites(){
   const [movies, setMovies] = useState<MovieProps[]>([])
-  // const {movies} = useMovies();
+  const {getMovies} = useMovies();
 
   useEffect(() => {
     async function loadMovies() {
@@ -37,6 +37,9 @@ export function Favorites(){
         onPress: async () => {
           try {
             await removeFavoriteMovie(id);
+            //const titleTransformed = Title.substr(0,4);
+            const savedInputFromMoviesScreen = await getInputSearch();
+            await getMovies(savedInputFromMoviesScreen);
           } catch (error) {
             Alert.alert('Não foi possível remover');
           }
@@ -60,7 +63,7 @@ export function Favorites(){
               Title={item.Title}
               Year={item.Year}
               imdbID={item.imdbID}
-              fav={true}
+              isChecked={item.isChecked}
               onPress={() => remove(item.imdbID, item.Title)}
               activeOpacity={0.7}
             />
