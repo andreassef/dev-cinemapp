@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -11,23 +10,32 @@ import {
 import { RectButton } from 'react-native-gesture-handler';
 import { theme } from '../../global/styles/theme';
 import { Feather } from '@expo/vector-icons';
-import api from '../../services/api';
 import { styles } from './styles';
 import { Movie } from '../../components/Movie';
 import { useMovies } from '../../hooks/listMovies';
-import { saveFavoriteMovie } from '../../storage';
+import { loadFavoritesMovies, saveFavoriteMovie, saveInputSearch } from '../../storage';
 
 export type MovieProps = {
   Title: string,
   Year: string,
   imdbID: string,
-  Poster?: string
+  Poster?: string,
+  isChecked?: boolean
 }
 
 export function Movies(){
   const [ title, setTitle ] = useState('');
+  const [ moviesList, setMoviesList ] = useState<MovieProps[]>([]);
+
   const {movies, getMovies} = useMovies();
-  const [ isFavorite, setIsFavorite ] = useState(false);
+
+  useEffect(()=> {
+    function handleMovieList() {
+      setMoviesList(movies);
+    }
+
+    handleMovieList();
+  }, [movies])
 
   async function handleInputSearchMovies(title: any) {
     setTitle(title);  
@@ -47,9 +55,11 @@ export function Movies(){
               await saveFavoriteMovie({
                 imdbID,
                 Title,
-                Year
+                Year,
+                isChecked: true
               })
-             setIsFavorite(true);
+              await getMovies(title);
+              await saveInputSearch(title);
             } catch (error) {
               Alert.alert('Não foi possível remover');
             }
@@ -60,8 +70,6 @@ export function Movies(){
       console.log('Erro na tela de Movies: ' + error)
     }
   }
-
-
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -89,14 +97,14 @@ export function Movies(){
         </View>
       :
         <FlatList
-          data={movies}
+          data={moviesList}
           keyExtractor={ item => item.imdbID }
           renderItem={({item}) => (
             <Movie 
               Title={item.Title}
               Year={item.Year}
               imdbID={item.imdbID}
-              fav={isFavorite}
+              isChecked={item.isChecked ? true: false}
               onPress={() => handleSaveFavorite({Title: item.Title, Year: item.Year, imdbID: item.imdbID})}
               activeOpacity={0.7}
             />
