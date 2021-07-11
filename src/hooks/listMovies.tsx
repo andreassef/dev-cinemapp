@@ -27,8 +27,6 @@ function MoviesProvider({children}: MoviesProviderProps) {
             s: title
           }
         });
-        //const response = moviesByTitle.config.data;
-        console.log(JSON.stringify(moviesByTitle.data.Search));
 
         const moviesStorage = await loadFavoritesMovies();
 
