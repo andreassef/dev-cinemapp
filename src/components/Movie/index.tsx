@@ -8,28 +8,16 @@ import {
 import { RectButton, RectButtonProps } from 'react-native-gesture-handler';
 import { AntDesign } from '@expo/vector-icons';
 import { styles } from './styles';
-import { MovieProps } from '../../screens/Movies';
-import { theme } from '../../global/styles/theme';
-import { useMovies } from '../../hooks/listMovies';
-import { saveFavoriteMovie } from '../../storage';
+import { loadFavoritesMovies } from '../../storage';
 
 type Props = RectButtonProps &{
   Title: string,
   Year: string,
   imdbID: string,
-  fav: boolean
+  isChecked?: boolean
 };
 
-export function Movie( { Title, Year, imdbID, fav, ...rest}: Props ){
-  const [ isFavorite, setIsFavorite ] = useState(false);
-
-  useEffect(() =>{
-    function isfav() {
-      setIsFavorite(fav);
-    }
-    isfav();
-  }, [])
-  
+export function Movie( { Title, Year, imdbID, isChecked, ...rest}: Props ){
 
   return (
     <RectButton
@@ -48,14 +36,14 @@ export function Movie( { Title, Year, imdbID, fav, ...rest}: Props ){
         </View>
 
         {
-          isFavorite ?
-          <AntDesign 
+          isChecked ?
+          <AntDesign
             name="star"
             color={'#dda520'}
             size={28}
           />
         :
-          <AntDesign 
+          <AntDesign
             name="staro"
             color={'#dda520'}
             size={28}
