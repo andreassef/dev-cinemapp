@@ -11,7 +11,7 @@ const TabRoutes = () => {
     return (
         <AppTab.Navigator
             tabBarOptions={{
-                activeTintColor: 'yellow',
+                activeTintColor: '#daa520',
                 inactiveTintColor: theme.colors.heading,
                 inactiveBackgroundColor: '#070B24',
                 labelPosition: 'beside-icon',
