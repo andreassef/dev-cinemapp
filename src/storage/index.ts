@@ -50,3 +50,13 @@ export async function removeFavoriteMovie(id: string): Promise<void> {
         JSON.stringify(movies)
     );
 }
+
+export async function saveInputSearch(title: string): Promise<void> {
+    await AsyncStorage.setItem('@search', title);
+}
+
+export async function getInputSearch(): Promise<string> {
+    const data = await AsyncStorage.getItem('@search');
+    const getSearch = data ? data : '';
+    return getSearch;
+}
