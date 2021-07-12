@@ -36,6 +36,7 @@ que eu já sabia desenvolver funcionando em perfeito estado</p>
 <p align="center">
 <img widht="180" height="430" alt="App" title="app" src="./assets/splashscreen.jpg" />
 <img widht="180" height="430" alt="App" title="app" src="./assets/mainscreen.jpg" />
+ <img widht="180" height="430" alt="App" title="app" src="./assets/movies.jpg" />
 <img widht="180" height="430" alt="App" title="app" src="./assets/favorites.jpg" />
 <img widht="180" height="430" alt="App" title="app" src="./assets/turnfavorite.jpg" />
 <img widht="180" height="430" alt="App" title="app" src="./assets/remove.jpg" />
