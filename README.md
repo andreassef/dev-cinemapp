@@ -6,10 +6,9 @@
  • <a href="#uso">Como usar</a>
  • <a href="#premissas">Premissas</a>
  • <a href="#aplicacao">Aplicativo</a>
- • <a href="#autor">Autor</a>
 </p>
 
-<h3 id="#uso">Como usar</h3>
+<h3 id="uso">Como usar</h3>
 <p>Para utilizar esse projeto primeiro clone esse repositório em sua máquina local, entre na pasta do projeto e use o comando <strong>yarn</strong> para 
 instalar as dependências do projeto</p>
 <p>Para executar o projeto, use o comando <strong>expo start</strong> dentro da pasta do projeto, é importante que você tenha o expo instalado de forma 
@@ -33,5 +32,11 @@ e criei um storage para armazenar os filmes favoritos.</p>
 de código simultaneamente ganhava mais confiança. O propósito dessa decisão foi chegar nas partes mais complexas do projeto com a confiança acumulada ao ter visto toda a parte
 que eu já sabia desenvolver funcionando em perfeito estado</p>
 
-<h3 id="#aplicacao">Aplicativo</h3>
-<img widht="200" height="300" alt="App" title="app" src="./assets/splash.png" />
+<h3 id="aplicacao">Aplicativo</h3>
+<p align="center">
+<img widht="180" height="430" alt="App" title="app" src="./assets/splashscreen.jpg" />
+<img widht="180" height="430" alt="App" title="app" src="./assets/mainscreen.jpg" />
+<img widht="180" height="430" alt="App" title="app" src="./assets/favorites.jpg" />
+<img widht="180" height="430" alt="App" title="app" src="./assets/turnfavorite.jpg" />
+<img widht="180" height="430" alt="App" title="app" src="./assets/remove.jpg" />
+</p>
