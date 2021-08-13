@@ -13,7 +13,7 @@
 instalar as dependências do projeto</p>
 <p>Para executar o projeto, use o comando <strong>expo start</strong> dentro da pasta do projeto, é importante que você tenha o expo instalado de forma 
 global em sua máquina. Para visualizar o aplicativo é necessário ter um emulador do Android ou IOS, ou em seu dispositivo movel ter o app Expo Go instalado.</p>
-<p>Para usar o Expo Go, após executar o projeto com o comando "expo start" uma aba do navegador será aberta com um QR Code, leia o QR code pela camerâ do 
+<p>Para usar o Expo Go, após executar o projeto com o comando "expo start" uma aba do navegador será aberta com um QR Code, leia o QR code pela câmera do 
 seu celular. Após ler o QR Code você será redirecionado para o app Expo Go e o projeto será executado.</p>
 
 <h3 id="premissas">Premissas</h3>
